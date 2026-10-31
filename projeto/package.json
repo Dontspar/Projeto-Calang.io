@@ -1,8 +1,22 @@
 {
   "name": "agenda-studio-rita",
   "version": "1.0.0",
-  "description": "Sistema de agendamento para salão de beleza",
+  "description": "Sistema de agendamento para o Agenda Studio Rita",
   "main": "src/regras/agenda.js",
+  "type": "commonjs",
   "scripts": {
-    "test": "node --test"
+    "test": "node --test",
+    "test:watch": "node --test --watch"
+  },
+  "keywords": [
+    "agendamento",
+    "salao",
+    "agenda",
+    "javascript"
+  ],
+  "author": "Equipe Agenda Studio Rita",
+  "license": "ISC",
+  "engines": {
+    "node": ">=18"
   }
+}
