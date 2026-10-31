@@ -176,21 +176,10 @@
                             Selecione um serviço
                         </option>
 
-                        <option value="corte">
-                            Corte - R$ 50,00
-                        </option>
-
-                        <option value="escova">
-                            Escova - R$ 35,00
-                        </option>
-
-                        <option value="manicure">
-                            Manicure - R$ 25,00
-                        </option>
-
-                        <option value="coloracao">
-                            Coloração - R$ 120,00
-                        </option>
+                        <option value="Corte">Corte - R$ 50,00</option>
+                        <option value="Escova">Escova - R$ 35,00</option>
+                        <option value="Manicure">Manicure - R$ 25,00</option>
+                        <option value="Coloração">Coloração - R$ 120,00</option>
 
                     </select>
                 </div>
@@ -260,6 +249,15 @@
 
         carregarHorarios();
 
+        function horarioParaMinutos(horario) {
+            const partes = horario.split(":");
+
+            const horas = Number(partes[0]);
+            const minutos = Number(partes[1]);
+
+            return horas * 60 + minutos;
+        }
+
         // Executado quando o usuário confirma o formulário
         formulario.addEventListener("submit", function (evento) {
 
@@ -283,6 +281,8 @@
                 mensagem.style.color = "red";
                 return;
             }
+
+            const inicioEmMinutos = horarioParaMinutos(horario);
 
             mensagem.textContent =
                 "Agendamento solicitado por " + nome +
