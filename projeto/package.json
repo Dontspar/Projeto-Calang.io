@@ -1,0 +1,8 @@
+{
+  "name": "agenda-studio-rita",
+  "version": "1.0.0",
+  "description": "Sistema de agendamento para salão de beleza",
+  "main": "src/regras/agenda.js",
+  "scripts": {
+    "test": "node --test"
+  }
