@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Studio Rita - Agendamento</title>
+
+    <style>
+        /* Configurações gerais CSS*/
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px;
+            background-color: #222;
+            color: white;
+        }
+
+        main {
+            width: 90%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            margin-top: 0;
+        }
+
+        .lista-servicos {
+            display: flex;
+            gap: 15px;
+        }
+
+        .servico {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .campo {
+            margin-bottom: 15px;
+        }
+
+        .campo label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .campo input,
+        .campo select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #222;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+
+        #mensagem {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            .lista-servicos {
+                flex-direction: column;
+            }
+
+            main {
+                width: 95%;
+            }
+
+            header {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Studio Rita</h1>
+        <p>Agende seu horário</p>
+    </header>
+
+    <main>
+
+        <!-- Lista de serviços -->
+        <section>
+            <h2>Serviços</h2>
+
+            <div class="lista-servicos">
+
+                <div class="servico">
+                    <h3>Corte</h3>
+                    <p>Duração: 1 hora</p>
+                    <p>R$ 50,00</p>
+                </div>
+
+                <div class="servico">
+                    <h3>Escova</h3>
+                    <p>Duração: 30 minutos</p>
+                    <p>R$ 35,00</p>
+                </div>
+
+                <div class="servico">
+                    <h3>Manicure</h3>
+                    <p>Duração: 30 minutos</p>
+                    <p>R$ 25,00</p>
+                </div>
+
+                <div class="servico">
+                    <h3>Coloração</h3>
+                    <p>Duração: 1 hora e 30 minutos</p>
+                    <p>R$ 120,00</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Formulário de agendamento -->
+        <section>
+            <h2>Faça seu agendamento</h2>
+
+            <form id="form-agendamento">
+
+                <div class="campo">
+                    <label for="nome">Nome:</label>
+
+                    <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
+                </div>
+
+                <div class="campo">
+                    <label for="telefone">Telefone:</label>
+
+                    <input type="tel" id="telefone" name="telefone" placeholder="(88) 99999-9999">
+                </div>
+
+                <div class="campo">
+                    <label for="servico">Serviço:</label>
+
+                    <select id="servico" name="servico">
+
+                        <option value="">
+                            Selecione um serviço
+                        </option>
+
+                        <option value="Corte">Corte - R$ 50,00</option>
+                        <option value="Escova">Escova - R$ 35,00</option>
+                        <option value="Manicure">Manicure - R$ 25,00</option>
+                        <option value="Coloração">Coloração - R$ 120,00</option>
+
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="data">Data:</label>
+
+                    <input type="date" id="data" name="data">
+                </div>
+
+                <div class="campo">
+                    <label for="horario">Horário:</label>
+
+                    <select id="horario" name="horario">
+                        <option value="">
+                            Selecione um horário
+                        </option>
+                    </select>
+                </div>
+
+                <button type="submit">
+                    Confirmar agendamento
+                </button>
+
+            </form>
+            <p id="mensagem"></p>
+
+        </section>
+
+    </main>
+
+    <script>
+        // Busca elementos do HTML
+        const formulario = document.getElementById("form-agendamento");
+        const mensagem = document.getElementById("mensagem");
+        const campoHorario = document.getElementById("horario");
+
+        function carregarHorarios() {
+            const horarios = [
+                "09:00",
+                "09:30",
+                "10:00",
+                "10:30",
+                "11:00",
+                "11:30",
+                "12:00",
+                "12:30",
+                "13:00",
+                "13:30",
+                "14:00",
+                "14:30",
+                "15:00",
+                "15:30",
+                "16:00",
+                "16:30",
+                "17:00",
+                "17:30"
+            ];
+
+            horarios.forEach(function (horario) {
+                const opcao = document.createElement("option");
+                opcao.value = horario;
+                opcao.textContent = horario;
+                campoHorario.appendChild(opcao);
+            });
+        }
+
+        carregarHorarios();
+
+        function horarioParaMinutos(horario) {
+            const partes = horario.split(":");
+
+            const horas = Number(partes[0]);
+            const minutos = Number(partes[1]);
+
+            return horas * 60 + minutos;
+        }
+
+        // Executado quando o usuário confirma o formulário
+        formulario.addEventListener("submit", function (evento) {
+
+            evento.preventDefault();
+
+            const nome = document.getElementById("nome").value;
+            const telefone = document.getElementById("telefone").value;
+            const servico = document.getElementById("servico").value;
+            const data = document.getElementById("data").value;
+            const horario = document.getElementById("horario").value;
+
+            // Verifica se algum campo está vazio
+            if (
+                nome === "" ||
+                telefone === "" ||
+                servico === "" ||
+                data === "" ||
+                horario === ""
+            ) {
+                mensagem.textContent = "Preencha todos os campos!";
+                mensagem.style.color = "red";
+                return;
+            }
+
+            const inicioEmMinutos = horarioParaMinutos(horario);
+
+            mensagem.textContent =
+                "Agendamento solicitado por " + nome +
+                " | Telefone: " + telefone +
+                " | Serviço: " + servico +
+                " | Data: " + data +
+                " | Horário: " + horario;
+            mensagem.style.color = "green";
+        });
+    </script>
+
+</body>
+
+</html>
