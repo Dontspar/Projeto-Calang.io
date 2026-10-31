@@ -1,4 +1,3 @@
-
 const servicos = [
     { nome: "Corte", duracao: 60, preco: 50 },
     { nome: "Escova", duracao: 30, preco: 35 },
