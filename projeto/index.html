@@ -8,7 +8,6 @@
     <title>Studio Rita - Agendamento</title>
 
     <style>
-        /* Configurações gerais CSS*/
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -116,7 +115,6 @@
 
     <main>
 
-        <!-- Lista de serviços -->
         <section>
             <h2>Serviços</h2>
 
@@ -149,7 +147,6 @@
             </div>
         </section>
 
-        <!-- Formulário de agendamento -->
         <section>
             <h2>Faça seu agendamento</h2>
 
@@ -157,13 +154,11 @@
 
                 <div class="campo">
                     <label for="nome">Nome:</label>
-
                     <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
                 </div>
 
                 <div class="campo">
                     <label for="telefone">Telefone:</label>
-
                     <input type="tel" id="telefone" name="telefone" placeholder="(88) 99999-9999">
                 </div>
 
@@ -171,22 +166,16 @@
                     <label for="servico">Serviço:</label>
 
                     <select id="servico" name="servico">
-
-                        <option value="">
-                            Selecione um serviço
-                        </option>
-
+                        <option value="">Selecione um serviço</option>
                         <option value="Corte">Corte - R$ 50,00</option>
                         <option value="Escova">Escova - R$ 35,00</option>
                         <option value="Manicure">Manicure - R$ 25,00</option>
                         <option value="Coloração">Coloração - R$ 120,00</option>
-
                     </select>
                 </div>
 
                 <div class="campo">
                     <label for="data">Data:</label>
-
                     <input type="date" id="data" name="data">
                 </div>
 
@@ -194,9 +183,7 @@
                     <label for="horario">Horário:</label>
 
                     <select id="horario" name="horario">
-                        <option value="">
-                            Selecione um horário
-                        </option>
+                        <option value="">Selecione um serviço e uma data</option>
                     </select>
                 </div>
 
@@ -205,19 +192,46 @@
                 </button>
 
             </form>
+
             <p id="mensagem"></p>
 
         </section>
 
     </main>
 
+    <script src="scr/regras/agenda.js"></script>
+
     <script>
-        // Busca elementos do HTML
         const formulario = document.getElementById("form-agendamento");
         const mensagem = document.getElementById("mensagem");
         const campoHorario = document.getElementById("horario");
+        const campoServico = document.getElementById("servico");
+        const campoData = document.getElementById("data");
+
+        function horarioParaMinutos(horario) {
+            const partes = horario.split(":");
+
+            const horas = Number(partes[0]);
+            const minutos = Number(partes[1]);
+
+            return horas * 60 + minutos;
+        }
 
         function carregarHorarios() {
+            const data = campoData.value;
+            const nomeServico = campoServico.value;
+
+            campoHorario.innerHTML =
+                '<option value="">Selecione um horário</option>';
+
+            if (data === "" || nomeServico === "") {
+                return;
+            }
+
+            const servico = Agenda.servicos.find(function (item) {
+                return item.nome === nomeServico;
+            });
+
             const horarios = [
                 "09:00",
                 "09:30",
@@ -239,59 +253,94 @@
                 "17:30"
             ];
 
+            let encontrouHorario = false;
+
             horarios.forEach(function (horario) {
-                const opcao = document.createElement("option");
-                opcao.value = horario;
-                opcao.textContent = horario;
-                campoHorario.appendChild(opcao);
+                const inicio = horarioParaMinutos(horario);
+
+                const disponivel = Agenda.verificarDisponibilidade(
+                    data,
+                    inicio,
+                    servico.duracao
+                );
+
+                if (disponivel) {
+                    const opcao = document.createElement("option");
+
+                    opcao.value = horario;
+                    opcao.textContent = horario;
+
+                    campoHorario.appendChild(opcao);
+
+                    encontrouHorario = true;
+                }
             });
-        }
 
-        carregarHorarios();
-
-        function horarioParaMinutos(horario) {
-            const partes = horario.split(":");
-
-            const horas = Number(partes[0]);
-            const minutos = Number(partes[1]);
-
-            return horas * 60 + minutos;
-        }
-
-        // Executado quando o usuário confirma o formulário
-        formulario.addEventListener("submit", function (evento) {
-
-            evento.preventDefault();
-
-            const nome = document.getElementById("nome").value;
-            const telefone = document.getElementById("telefone").value;
-            const servico = document.getElementById("servico").value;
-            const data = document.getElementById("data").value;
-            const horario = document.getElementById("horario").value;
-
-            // Verifica se algum campo está vazio
-            if (
-                nome === "" ||
-                telefone === "" ||
-                servico === "" ||
-                data === "" ||
-                horario === ""
-            ) {
-                mensagem.textContent = "Preencha todos os campos!";
-                mensagem.style.color = "red";
-                return;
+            if (!encontrouHorario) {
+                campoHorario.innerHTML =
+                    '<option value="">Nenhum horário disponível</option>';
             }
+        }
 
-            const inicioEmMinutos = horarioParaMinutos(horario);
+        campoServico.addEventListener(
+            "change",
+            carregarHorarios
+        );
 
-            mensagem.textContent =
-                "Agendamento solicitado por " + nome +
-                " | Telefone: " + telefone +
-                " | Serviço: " + servico +
-                " | Data: " + data +
-                " | Horário: " + horario;
-            mensagem.style.color = "green";
-        });
+        campoData.addEventListener(
+            "change",
+            carregarHorarios
+        );
+
+        formulario.addEventListener(
+            "submit",
+            function (evento) {
+                evento.preventDefault();
+
+                const nome = document.getElementById("nome").value;
+                const telefone = document.getElementById("telefone").value;
+                const servico = campoServico.value;
+                const data = campoData.value;
+                const horario = campoHorario.value;
+
+                if (
+                    nome === "" ||
+                    telefone === "" ||
+                    servico === "" ||
+                    data === "" ||
+                    horario === ""
+                ) {
+                    mensagem.textContent = "Preencha todos os campos!";
+                    mensagem.style.color = "red";
+                    return;
+                }
+
+                const inicioEmMinutos = horarioParaMinutos(horario);
+
+                const agendamentoRealizado = Agenda.agendar(
+                    nome,
+                    telefone,
+                    data,
+                    inicioEmMinutos,
+                    servico
+                );
+
+                if (agendamentoRealizado) {
+                    mensagem.textContent = "Agendamento realizado com sucesso!";
+                    mensagem.style.color = "green";
+
+                    formulario.reset();
+                    carregarHorarios();
+                } else {
+                    mensagem.textContent =
+                        "Não foi possível realizar o agendamento. Verifique o horário escolhido.";
+
+                    mensagem.style.color = "red";
+
+                    carregarHorarios();
+                }
+            }
+        );
     </script>
 
 </body>
