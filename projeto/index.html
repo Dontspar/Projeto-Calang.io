@@ -297,8 +297,8 @@
             function (evento) {
                 evento.preventDefault();
 
-                const nome = document.getElementById("nome").value;
-                const telefone = document.getElementById("telefone").value;
+                const nome = document.getElementById("nome").value.trim();
+                const telefone = document.getElementById("telefone").value.trim();
                 const servico = campoServico.value;
                 const data = campoData.value;
                 const horario = campoHorario.value;
