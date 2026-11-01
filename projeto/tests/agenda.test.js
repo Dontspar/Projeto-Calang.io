@@ -4,6 +4,11 @@ const agenda = require('../scr/regras/agenda')
 
 agenda.agendar('Pedro Henrique', '888888888', '2026-11-05', 540, 'Corte');
 
+test('O pacote principal exporta a agenda corretamente', () => {
+    const agendaDoPacote = require('..');
+    assert.strictEqual(typeof agendaDoPacote.agendar, 'function');
+    assert.strictEqual(typeof agendaDoPacote.verificarFuncionamento, 'function');
+});
 
 test('Validação de formato de datas', () => {
     assert.strictEqual(agenda.verificarFuncionamento('2026-10-31', 600, 60), true); 

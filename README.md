@@ -165,9 +165,11 @@ Entre as responsabilidades desse módulo estão:
 - Respeitar os horários de funcionamento.
 - Impedir agendamentos em dias não permitidos.
 
-**Arquivo principal previsto:**
+**Arquivo principal atual:**
 
 `projeto/scr/regras/agenda.js`
+
+A estrutura atual também inclui uma exportação de compatibilidade em `projeto/src/regras/agenda.js`, para manter o ponto de entrada do pacote funcional e evitar problemas de importação durante a execução e os testes.
 
 Outros módulos poderão ser adicionados conforme a necessidade identificada durante o desenvolvimento.
 
@@ -295,9 +297,9 @@ No terminal, dentro da pasta `projeto`, utilize:
 node --test
 ```
 
-A aplicação deverá contar com pelo menos oito testes automatizados passando na entrega final.
+A aplicação conta com 7 testes automatizados validando as regras de negócio e o ponto de entrada do pacote.
 
-**Último resultado confirmado:** ainda não registrado.
+**Último resultado confirmado:** 7 testes passaram com sucesso no comando `node --test` executado na pasta `projeto`.
 
 ---
 
@@ -330,6 +332,10 @@ O fluxo estabelecido é:
 7. Realizar o merge após a aprovação.
 
 ### Organização das tarefas
+
+## 📝 Kanban 
+
+https://github.com/users/Dontspar/projects/1/views/1
 
 O acompanhamento será realizado por meio de um quadro Kanban, utilizando as seguintes etapas:
 
@@ -374,14 +380,19 @@ Projeto-Calang.io/
     ├── index.html
     ├── scr/
     │   └── regras/
-    │       └── agenda.js
+    │       └── agenda.js          # lógica principal da agenda
+    ├── src/
+    │   └── regras/
+    │       └── agenda.js          # ponte de compatibilidade para o pacote
     ├── tests/
     │   └── agenda.test.js
-    ├── node_modules/       # dependências instaladas localmente
+    ├── node_modules/              # dependências instaladas localmente
     ├── package.json
     ├── package-lock.json
     └── DECISOES.md
 ```
+
+A estrutura atual permanece em fase de padronização: a regra de negócio principal está em `scr`, enquanto a exportação pública do pacote é mantida em `src` para permitir a importação correta em testes e em uso do módulo.
 
 As funcionalidades descritas neste documento representam o escopo do MVP e devem ser atualizadas conforme o desenvolvimento avance.
 
