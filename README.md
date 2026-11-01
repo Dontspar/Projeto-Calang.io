@@ -1,8 +1,10 @@
+readme
+
 # 📅 Agenda Studio Rita
 
-Sistema de agendamento online desenvolvido com **HTML, CSS e JavaScript**, com foco na organização de horários e no gerenciamento de atendimentos do Studio Rita.
+Projeto de sistema de agendamento online para o Studio Rita, desenvolvido com **HTML, CSS e JavaScript**. Este README descreve o escopo planejado do MVP; consulte a estrutura e o estado atual dos arquivos antes de considerar uma funcionalidade concluída.
 
-A aplicação permite que clientes consultem os serviços oferecidos, visualizem horários disponíveis e realizem agendamentos. Também disponibiliza um painel administrativo para acompanhamento e gerenciamento da agenda diária.
+O MVP prevê que clientes consultem os serviços, vejam horários disponíveis e realizem agendamentos. Também prevê um painel administrativo para Rita acompanhar e gerenciar a agenda diária.
 
 ---
 
@@ -60,9 +62,9 @@ Serviços disponíveis:
 | Manicure | 30 minutos | R$ 25,00 |
 | Coloração | 1 hora e 30 minutos | R$ 120,00 |
 
-### 📅 Agendamento de horários
+### 📅 Agendamento de horários (previsto)
 
-A aplicação permite que as clientes consultem os horários disponíveis para cada serviço e realizem agendamentos informando seus dados.
+O fluxo planejado permite que as clientes consultem horários por serviço e data e enviem seus dados para realizar um agendamento.
 
 Funcionalidades:
 
@@ -73,9 +75,9 @@ Funcionalidades:
 - Impedir agendamentos com informações obrigatórias ausentes.
 - Evitar conflitos entre atendimentos.
 
-### 🗓️ Visualização da agenda
+### 🗓️ Visualização da agenda (prevista)
 
-O painel administrativo permite que Rita acompanhe os atendimentos agendados para determinado dia.
+O painel administrativo planejado permitirá que Rita acompanhe os atendimentos de determinado dia.
 
 Informações apresentadas:
 
@@ -86,9 +88,9 @@ Informações apresentadas:
 
 Os atendimentos são organizados em ordem cronológica, facilitando a visualização e o acompanhamento da rotina do estabelecimento.
 
-### ⚙️ Gerenciamento de atendimentos
+### ⚙️ Gerenciamento de atendimentos (previsto)
 
-O sistema disponibiliza funcionalidades administrativas para o gerenciamento da agenda.
+O escopo prevê as seguintes funções administrativas:
 
 - Consultar os atendimentos do dia.
 - Cancelar agendamentos existentes.
@@ -96,7 +98,7 @@ O sistema disponibiliza funcionalidades administrativas para o gerenciamento da 
 - Bloquear horários específicos (diferencial).
 - Marcar atendimentos como concluídos (diferencial).
 
-### 💾 Armazenamento de dados
+### 💾 Armazenamento de dados (previsto)
 
 - Persistência de informações utilizando `localStorage`.
 - Armazenamento dos agendamentos no navegador.
@@ -107,7 +109,7 @@ O sistema disponibiliza funcionalidades administrativas para o gerenciamento da 
 
 ## 📋 Requisitos e critérios de aceitação
 
-O desenvolvimento segue os requisitos funcionais definidos para o produto mínimo viável (MVP).
+Os requisitos funcionais abaixo definem o produto mínimo viável (MVP); sua inclusão nesta tabela não significa que já estejam implementados.
 
 | ID | Requisito | Prioridade |
 |---|---|---|
@@ -128,7 +130,7 @@ O desenvolvimento segue os requisitos funcionais definidos para o produto mínim
 | RF02 | Um corte agendado às 10h impede que uma escova seja oferecida às 10h ou às 10h30 no mesmo dia. |
 | RF02 | Domingos não apresentam horários disponíveis e nenhum serviço pode terminar após as 18h. |
 | RF03 | Agendamentos sem nome ou telefone não são salvos, e a cliente recebe uma indicação do motivo. |
-| RF04 | A regra de conflito é implementada como uma função pura em `src/regras/`, acompanhada de testes. |
+| RF04 | A regra de conflito deve ser implementada como função pura em `projeto/scr/regras/` e acompanhada de testes. |
 | RF05 | O painel apresenta os atendimentos em ordem de horário, com nome, telefone e serviço. |
 | RF06 | Após o cancelamento, o horário correspondente volta a aparecer como disponível. |
 | Geral | Os dados permanecem armazenados após recarregar a página. |
@@ -145,8 +147,9 @@ A aplicação será construída em uma única página HTML, contendo duas áreas
 |---|---|
 | Agendar | Interface destinada às clientes, permitindo consultar serviços, horários disponíveis e realizar agendamentos. |
 | Painel da Rita | Interface administrativa destinada à visualização e ao gerenciamento dos atendimentos. |
-| `src/regras/` | Organização das funções puras responsáveis pelas regras de negócio da aplicação. |
-| `localStorage` | Persistência local dos dados dos agendamentos. |
+| `projeto/scr/regras/` | Local atual previsto para as funções responsáveis pelas regras de negócio. |
+| Servidor estático (`serve`) | Disponibiliza os arquivos da aplicação por HTTP durante o desenvolvimento; não implementa backend nem API. |
+| `localStorage` | Persistência local planejada para os dados dos agendamentos. |
 
 A separação entre regras de negócio e interface tem como objetivo facilitar a manutenção do código e permitir a realização de testes independentes da apresentação visual.
 
@@ -164,7 +167,7 @@ Entre as responsabilidades desse módulo estão:
 
 **Arquivo principal previsto:**
 
-`src/regras/agenda.js`
+`projeto/scr/regras/agenda.js`
 
 Outros módulos poderão ser adicionados conforme a necessidade identificada durante o desenvolvimento.
 
@@ -190,7 +193,7 @@ O sistema deve respeitar as condições de funcionamento do Studio Rita.
 - Não podem existir atendimentos simultâneos.
 - Um novo agendamento não pode ocupar o intervalo de um atendimento já registrado.
 - Nenhum serviço pode ultrapassar o horário de encerramento.
-- Horários de almoço não devem ser disponibilizados para agendamento.
+- O intervalo de almoço ainda precisa ser definido; depois disso, esse período não deverá ser disponibilizado para agendamento.
 
 ### Integridade dos agendamentos
 
@@ -203,11 +206,11 @@ O sistema deve respeitar as condições de funcionamento do Studio Rita.
 
 ## 💾 Persistência de dados com localStorage
 
-O sistema utiliza o `localStorage`, recurso do navegador que permite armazenar informações localmente.
+O escopo prevê o uso de `localStorage`, recurso do navegador que permite armazenar informações localmente.
 
-A persistência dos dados possibilita que os agendamentos continuem disponíveis após o recarregamento da página, sem a necessidade de um servidor ou banco de dados externo.
+A persistência dos dados deverá permitir que os agendamentos continuem disponíveis após o recarregamento da página, sem servidor ou banco de dados externo.
 
-A aplicação deverá organizar as operações de armazenamento e recuperação das informações de maneira consistente.
+As operações de armazenamento e recuperação deverão ser organizadas de maneira consistente.
 
 **Observação:** como não há backend, o armazenamento é local ao navegador utilizado. Portanto, a solução não contempla sincronização automática de dados entre diferentes dispositivos ou navegadores.
 
@@ -230,33 +233,42 @@ O desenvolvimento deve respeitar as seguintes condições:
 
 - Utilização de HTML, CSS e JavaScript puro.
 - Não utilização de frameworks.
-- Não utilização de backend.
+- Não utilização de backend; o servidor `serve` é estático e serve apenas os arquivos da aplicação.
 - Aplicação organizada em uma única `index.html`.
 - Persistência de dados por meio de `localStorage`.
-- Regras de negócio em funções puras dentro de `src/regras/`.
+- Regras de negócio em funções puras dentro de `projeto/scr/regras/`.
 - Testes automatizados executados com `node --test`.
+- Node.js 18 ou superior para executar o servidor e os testes.
 
 ---
 
 ## ▶️ Como executar
 
-### 1. Clonar o repositório
+### 1. Entrar na pasta da aplicação
 
 ```bash
-git clone URL_DO_REPOSITORIO
+cd projeto
 ```
 
-### 2. Entrar na pasta do projeto
+### 2. Instalar as dependências
 
 ```bash
-cd agenda-studio-rita
+npm install
 ```
 
-### 3. Executar a aplicação
+### 3. Iniciar o servidor de desenvolvimento
 
-Como o projeto utiliza HTML, CSS e JavaScript puro, sem backend, basta abrir o arquivo `index.html` em um navegador.
+```bash
+npm run dev
+```
 
-**Observação:** para executar os testes automatizados, é necessário ter o Node.js instalado.
+O comando inicia o servidor estático `serve`; abra o endereço exibido no terminal (por padrão, `http://localhost:3000`). Encerre o servidor com `Ctrl+C`.
+
+O servidor apenas entrega os arquivos HTML, CSS e JavaScript por HTTP. Ele não é um backend, não oferece API e não sincroniza os dados: os agendamentos continuam restritos ao `localStorage` do navegador.
+
+**Alternativa:** também é possível abrir `index.html` diretamente no navegador, sem iniciar o servidor.
+
+**Observação:** execute os comandos dentro da pasta `projeto` e use Node.js 18 ou superior.
 
 ---
 
@@ -270,14 +282,14 @@ Os testes devem contemplar tanto situações comuns quanto casos extremos, garan
 
 - Verificação de horários sobrepostos.
 - Validação da disponibilidade de horários.
-- Respeito ao intervalo de almoço.
+- Respeito ao intervalo de almoço, após a definição desse período.
 - Impedimento de agendamentos aos domingos.
 - Impedimento de serviços que ultrapassem o horário de funcionamento.
 - Verificação da liberação de horários após cancelamentos.
 
 ### Executando os testes
 
-No terminal, a partir da pasta principal do projeto, utilize:
+No terminal, dentro da pasta `projeto`, utilize:
 
 ```bash
 node --test
@@ -285,7 +297,7 @@ node --test
 
 A aplicação deverá contar com pelo menos oito testes automatizados passando na entrega final.
 
-**Último resultado confirmado:** [Preencher após execução dos testes]
+**Último resultado confirmado:** ainda não registrado.
 
 ---
 
@@ -333,7 +345,7 @@ Cada integrante deverá manter, no máximo, um card na coluna "Fazendo".
 
 ## 📝 Decisões do projeto
 
-As decisões técnicas e organizacionais devem ser registradas no arquivo `DECISOES.md`.
+As decisões técnicas e organizacionais devem ser registradas no arquivo `projeto/DECISOES.md`.
 
 Cada registro deverá apresentar:
 
@@ -346,32 +358,32 @@ Cada registro deverá apresentar:
 
 O objetivo é documentar as escolhas realizadas durante o desenvolvimento, permitindo compreender os motivos por trás da implementação e facilitar futuras alterações.
 
-**Registro das decisões:** [Consultar DECISOES.md]
+**Registro das decisões:** [Consultar projeto/DECISOES.md](projeto/DECISOES.md)
 
 ---
 
 ## 📁 Estrutura do projeto
 
-Estrutura inicial sugerida para organização dos arquivos:
+Estrutura atual dos arquivos relevantes:
 
 ```text
-agenda-studio-rita/
+Projeto-Calang.io/
 │
-├── index.html
-│
-├── src/
-│   └── regras/
-│       └── agenda.js
-│
-├── tests/
-│   └── [arquivos de testes]
-│
-├── DECISOES.md
-├── .gitignore
-└── README.md
+├── README.md
+└── projeto/
+    ├── index.html
+    ├── scr/
+    │   └── regras/
+    │       └── agenda.js
+    ├── tests/
+    │   └── agenda.test.js
+    ├── node_modules/       # dependências instaladas localmente
+    ├── package.json
+    ├── package-lock.json
+    └── DECISOES.md
 ```
 
-A estrutura poderá ser modificada conforme a evolução do projeto, desde que sejam respeitadas as restrições técnicas e a separação das responsabilidades.
+As funcionalidades descritas neste documento representam o escopo do MVP e devem ser atualizadas conforme o desenvolvimento avance.
 
 ---
 
@@ -387,13 +399,13 @@ A estrutura poderá ser modificada conforme a evolução do projeto, desde que s
 
 | Integrante | Responsabilidade | GitHub |
 |---|---|---|
-| Alexandre Marques Cabral | [Responsabilidade] | [Perfil] |
-| Gledson Do Nascimento Silva | [Responsabilidade] | [Perfil] |
-| João Lucas de Siqueira Miranda |  | [Perfil] |
-| Tadeu Coêlho de Vasconcelos | Organização e documentação | [Perfil] |
+| Alexandre Marques Cabral | agenda da rita e testes | [Mestos] |
+| Gledson Do Nascimento Silva | agenda.js | [Gledsons7] |
+| João Lucas de Siqueira Miranda | index.html | [joa0lucassi] |
+| Tadeu Coêlho de Vasconcelos | Organização e documentação | [Dontspar] |
 
-**Facilitador:** Dia 1: _[Nome]_; Dia 2: _[Nome]_  
-**Guardião da main:** Dia 1: _[Nome]_; Dia 2: _[Nome]_
+**Facilitador:** Dia 1: _[Dontspar]_; Dia 2: _[Gledsons7]_  
+**Guardião da main:** Dia 1: _[Mestos]_; Dia 2: _[Dontspar]_
 
 *Os papéis são rotativos e podem ser atualizados durante o desenvolvimento.*
 
