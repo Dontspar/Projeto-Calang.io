@@ -333,10 +333,6 @@ O fluxo estabelecido é:
 
 ### Organização das tarefas
 
-## 📝 Kanban 
-
-https://github.com/users/Dontspar/projects/1/views/1
-
 O acompanhamento será realizado por meio de um quadro Kanban, utilizando as seguintes etapas:
 
 - A fazer.
@@ -344,8 +340,17 @@ O acompanhamento será realizado por meio de um quadro Kanban, utilizando as seg
 - Em revisão.
 - Pronto.
 - Impedido.
-
 Cada integrante deverá manter, no máximo, um card na coluna "Fazendo".
+
+
+---
+
+## 📝 Kanban 
+
+https://github.com/users/Dontspar/projects/1/views/1
+
+
+
 
 ---
 
